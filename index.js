@@ -2,8 +2,8 @@ const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const { default: inquirer } = require('inquirer');
-
+const inquirer = require('inquirer');
+const writeFile = require('./src/generateHTML')
 let employeeArr = [];
 
 const promptMenu = () => {
@@ -12,11 +12,15 @@ const promptMenu = () => {
             type: 'list',
             name: 'menu',
             message: 'What would you like to do?',
-            choices: ['Add engineer', 'Add intern', 'Quit application']
+            choices: ['Add manager', 'Add engineer', 'Add intern', 'Quit application']
         }
     ])
     .then(choice => {
         switch (choice.menu) {
+            case 'Add manager':
+                // manager prompts function here;
+                promptManager()
+                break;
             case 'Add engineer':
                 // engineer prompts function here;
                 promptEngineer()
@@ -27,6 +31,9 @@ const promptMenu = () => {
                 break;
             case 'Quit application':
                 // generate html function here;
+                const createTemp = (employeeArr) => {
+                    console.log("Writing html file")
+                }
                 break;
         }
     })
@@ -58,7 +65,7 @@ const promptManager = () => {
     .then(function(answers) {
         const managerData = new Manager(answers.name, answers.id, answers.email, answers.officeNum);
         employeeArr.push(managerData);
-        promptMenu();
+        return promptMenu();
         });
 };
 
@@ -86,9 +93,9 @@ const promptEngineer = () => {
         },
     ])
     .then(function(answers) {
-        const engineerData = new Manager(answers.name, answers.id, answers.email, answers.github);
+        const engineerData = new Engineer(answers.name, answers.id, answers.email, answers.github);
         employeeArr.push(engineerData);
-        promptMenu();
+        return promptMenu();
         });
 }
 
@@ -116,17 +123,19 @@ const promptIntern = () => {
         },
     ])
     .then(function(answers) {
-        const internData = new Manager(answers.name, answers.id, answers.email, answers.school);
+        const internData = new Intern(answers.name, answers.id, answers.email, answers.school);
         employeeArr.push(internData);
-        promptMenu();
+        return promptMenu();
         });
 };
 
 const init = () => {
-    promptManager()
-    .then((data) => writeFile("./utils/sample/README.md", getGenMarkdown.generateMarkdown(data)))
-    .then(() => console.log("Successfully wrote readme"))
+    promptMenu()
+    .then((employeeArr) => writeFile("./index.html", generateHTML(employeeArr), "UTF-8"))
+    .then(() => console.log("Successfully created team profile"))
     .catch((err) => console.error(err))
 }
 
 init()
+
+// getGenMarkdown.generateHTML(employeeArr)))
