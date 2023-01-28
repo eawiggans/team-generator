@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const writeFile = (contents) => {
     fs.writeFile('./dist/index.html', contents, (err) =>{
         if (err) {

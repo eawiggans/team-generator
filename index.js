@@ -4,7 +4,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const writeFile = require('./src/generateHTML')
-const generateManager = require('./src/HTMLliterals')
+const generateIndex = require('./src/HTMLliterals')
 const fs = require('fs');
 let employeeArr = [];
 
@@ -65,11 +65,9 @@ const promptManager = () => {
         .then(function (answers) {
             const managerData = new Manager(answers.name, answers.id, answers.email, answers.officeNum);
             employeeArr.push(managerData);
-            const managerCard = generateManager(managerData)
-            console.log(managerCard)
-            writeFile(managerCard)
-            return promptMenu();
-        });
+            promptMenu()
+            
+        })
 };
 
 const promptEngineer = () => {
@@ -98,7 +96,7 @@ const promptEngineer = () => {
         .then(function (answers) {
             const engineerData = new Engineer(answers.name, answers.id, answers.email, answers.github);
             employeeArr.push(engineerData);
-            return promptMenu();
+            promptMenu();
         });
 }
 
@@ -128,21 +126,16 @@ const promptIntern = () => {
         .then(function (answers) {
             const internData = new Intern(answers.name, answers.id, answers.email, answers.school);
             employeeArr.push(internData);
-            return promptMenu();
+            promptMenu();
         });
 };
 
 
-// function constructFile () {
-//     fs.writeFile('./dist/index.html', generateManager(managerData), (err) =>{
-//         if (err) {
-//             console.log(err)
-//         }
-//         else {
-//             console.log("Team profile html generated successfully")
-//         }
-//     })
-// }
+function constructFile () {
+    const literal = generateIndex(employeeArr);
+    writeFile(literal)
+};
+
 const init = () => {
     promptMenu()
 }
