@@ -1,4 +1,5 @@
 const generateEmployees = (employees) => {
+    
     const generateManager = (managerData) => {
         return `
     <!DOCTYPE html>
@@ -45,7 +46,7 @@ const generateEmployees = (employees) => {
     <ul class="list-group">
         <li class="list-group-item">ID: ${engineerData.getId()}</li>
         <li class="list-group-item">Email: <a href="mailto:${engineerData.getEmail()}">${engineerData.getEmail()}</a></li>
-
+        <li class="list-group-item">Github: ${engineerData.getGitHub()}</li>
     </ul>
 </div>
 </div>
@@ -73,6 +74,20 @@ const generateEmployees = (employees) => {
     }
 
 
+    const htmlTemp = [];
+
+    htmlTemp.push(
+        employees.filter(employee => employee.getRole() === "Manager").map(managerData => generateManager(managerData))
+    );
+    htmlTemp.push(
+        employees.filter(employee => employee.getRole() === "Engineer").map(engineerData => generateEngineer(engineerData)).join("")
+    );
+    htmlTemp.push(
+        employees.filter(employee => employee.getRole() === "Intern").map(internData => generateIntern(internData)).join("")
+    );
+
+    return htmlTemp.join("");
+}
 
 const generateIndex = (employees) => {
     return `
@@ -96,7 +111,7 @@ ${generateEmployees(employees)}
     `;
 }
 
-{/* <li class="list-group-item">Github: ${engineerData.getGithub()}</li> */}
+
 module.exports = generateIndex;
 
 
