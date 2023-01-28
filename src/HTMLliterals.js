@@ -2,21 +2,8 @@ const generateEmployees = (employees) => {
     
     const generateManager = (managerData) => {
         return `
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-<nav class="navbar navbar-dark bg-primary" style="justify-content: center;">
-  Team Profile
-</nav>
 <div class="card employee-card" style="width: 18rem;">
-<div class="card-header bg-primary">
+<div class="card-header bg-danger">
     <h2 class="card-title">${managerData.getName()}</h2>
     <h3 class="card-title">${managerData.getRole()}</h3>
 </div>
@@ -28,8 +15,6 @@ const generateEmployees = (employees) => {
     </ul>
 </div>
 </div>
-</body>
-</html>
 
     `;
     }
@@ -38,7 +23,7 @@ const generateEmployees = (employees) => {
     const generateEngineer = (engineerData) => {
         return `
 <div class="card employee-card" style="width: 18rem;">
-<div class="card-header bg-primary">
+<div class="card-header bg-success">
     <h2 class="card-title">${engineerData.getName()}</h2>
     <h3 class="card-title">${engineerData.getRole()}</h3>
 </div>
@@ -46,7 +31,7 @@ const generateEmployees = (employees) => {
     <ul class="list-group">
         <li class="list-group-item">ID: ${engineerData.getId()}</li>
         <li class="list-group-item">Email: <a href="mailto:${engineerData.getEmail()}">${engineerData.getEmail()}</a></li>
-        <li class="list-group-item">Github: ${engineerData.getGitHub()}</li>
+        <li class="list-group-item">Github: <a href="https://github.com/${engineerData.getGitHub()}">${engineerData.getGitHub()}</a></li>
     </ul>
 </div>
 </div>
@@ -57,14 +42,14 @@ const generateEmployees = (employees) => {
     const generateIntern = (internData) => {
         return `
 <div class="card employee-card" style="width: 18rem;">
-<div class="card-header bg-primary">
+<div class="card-header bg-info">
     <h2 class="card-title">${internData.getName()}</h2>
     <h3 class="card-title">${internData.getRole()}</h3>
 </div>
 <div class="card-body">
     <ul class="list-group">
         <li class="list-group-item">ID: ${internData.getId()}</li>
-        <li class="list-group-item">Email: <a href="mailto:${internData.getEmail()}">${engineerData.getEmail()}</a></li>
+        <li class="list-group-item">Email: <a href="mailto:${internData.getEmail()}">${internData.getEmail()}</a></li>
         <li class="list-group-item">School: ${internData.getSchool()}</li>
     </ul>
 </div>
@@ -101,7 +86,7 @@ const generateIndex = (employees) => {
     <title>Document</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-primary" style="justify-content: center;">
+<nav class="navbar navbar-dark bg-primary" style="justify-content: center; font-size: 40px;">
   Team Profile
 </nav>
 ${generateEmployees(employees)}
